@@ -15,9 +15,7 @@ class User extends Authenticatable
      *
      * @var array
      */
-    protected $fillable = [
-        'name', 'email', 'password',
-    ];
+    protected $fillable = ['name', 'email', 'password', 'phone', 'gender','date_of_birth','blood_group','country','state','city','is_donated_before','is_available'];
 
     /**
      * The attributes that should be hidden for arrays.
@@ -35,5 +33,29 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'phone_verified_at' => 'datetime',
+        "date_of_birth"     => 'date',
+        "is_donated_before" => 'boolean',
+        "is_available"      => 'boolean',
     ];
+    protected $appends  = ['gender_formatted'];
+    public function getGenderFormattedAttribute()
+    {
+        $gender = "";
+        switch ($this->gender) {
+            case 'male':
+                $gender = "Male";
+                break;
+            case 'trans':
+                $gender = "Trans";
+                break;
+            case 'female':
+                $gender = "Female";
+            break;
+            default:
+                $gender = "Male";
+                break;
+        }
+        return $gender;
+    }
 }

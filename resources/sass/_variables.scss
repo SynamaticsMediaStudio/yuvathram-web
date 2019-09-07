@@ -1,11 +1,16 @@
 // Body
-$body-bg: #f8fafc;
+$body-bg: #FFFFFF;
 
 // Typography
-$font-family-sans-serif: 'Nunito', sans-serif;
+$font-family-sans-serif:'Poppins', sans-serif;
 $font-size-base: 0.9rem;
 $line-height-base: 1.6;
-
+$enable-rounded:false;
+$input-btn-focus-box-shadow:false;
+$input-focus-box-shadow:false;
+$btn-box-shadow:false;
+$btn-focus-box-shadow:false;
+$btn-active-box-shadow:false;
 // Colors
 $blue: #3490dc;
 $indigo: #6574cd;
@@ -17,3 +22,13 @@ $yellow: #ffed4a;
 $green: #38c172;
 $teal: #4dc0b5;
 $cyan: #6cb2eb;
+
+$primary:rgba(253,29,29,1);
+$theme-colors:(
+    "primary":$primary,
+    "grey":rgba(0,0,0,0.4)
+);
+.gradient{
+    background: rgb(131,58,180);
+    background: linear-gradient(90deg, rgba(131,58,180,1) 0%, rgba(253,35,31,1) 45%, rgba(253,29,29,1) 66%, rgba(252,176,69,1) 100%);
+}

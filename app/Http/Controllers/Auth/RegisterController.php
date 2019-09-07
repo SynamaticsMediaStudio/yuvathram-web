@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\User;
+use App\Rules\PhoneNumber;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -28,7 +29,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectTo = '/';
 
     /**
      * Create a new controller instance.
@@ -49,9 +50,18 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'name'                  => ['required', 'string', 'max:255'],
+            'email'                 => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'phone'                 => ['required', 'string', 'max:255', 'unique:users', new PhoneNumber],
+            'password'              => ['required', 'string', 'min:8', 'confirmed'],
+            "gender"                => ['required', 'string'],
+            "date_of_birth"         => ['nullable', 'date'],
+            "blood_group"           => ['required', 'string'],
+            "country"               => ['required', 'string'],
+            "state"                 => ['required', 'string'],
+            "city"                  => ['required', 'string'],
+            "is_donated_before"     => ['nullable', 'boolean'],
+            "is_available"          => ['nullable', 'boolean'],
         ]);
     }
 
@@ -63,10 +73,20 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
+        $user = User::create([
             'name' => $data['name'],
             'email' => $data['email'],
+            'phone' => $data['phone'],
             'password' => Hash::make($data['password']),
+            'gender' => $data['gender'],
+            'date_of_birth' => $data['date_of_birth'],
+            'blood_group' => $data['blood_group'],
+            'country' => $data['country'],
+            'state' => $data['state'],
+            'city' => $data['city'],
+            'is_donated_before' => $data['is_donated_before']?true:false,
+            'is_available' => $data['is_available']?true:false,
         ]);
+        return $user;
     }
 }
